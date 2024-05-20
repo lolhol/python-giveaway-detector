@@ -12,20 +12,20 @@ import time
 textToDetect = "Flash Giveaway"
 
 # the less you put, the more accurate the bot will be but the performance will suffer
-secBetweenChecks = 60
+secBetweenChecks = 10
 
 # insert your code here to actually let you know that the text has been detected
 def foundTextInImg():
     print("FLASH GIVEAWAY!!")
 
-
 # this is a simple script that will detect whatever text you want on the screen
 while True:
     os.system("screencapture screen.png")
     image = Image.open('screen.png')
-    text = pytesseract.image_to_string(image)
-    if textToDetect in text:
+    text = str(pytesseract.image_to_string(image)).replace(" ", "").replace("\n", "").lower()
+
+    if textToDetect.lower().replace(" ", "") in text:
         foundTextInImg()
         break
-    os.remove("screen.txt")
+    os.remove("screen.png")
     time.sleep(secBetweenChecks)
